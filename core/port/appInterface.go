@@ -6,7 +6,7 @@ type App interface {
 	DELETE(path string, handler Handler, mws ...Handler)
 	PATCH(path string, handler Handler, mws ...Handler)
 	PUT(path string, handler Handler, mws ...Handler)
-	Use(mw ...Handler)
-	Handle(handler Handler)
+	Use(mw ...Middleware)
+	// Handle(handler Handler)
 	ListAndServe(address string) error
 }

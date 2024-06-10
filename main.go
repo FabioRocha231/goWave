@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
 	fabinHttp "go_http/infra/http"
-	"html"
 	"log"
 	"net/http"
 )
@@ -11,8 +9,20 @@ import (
 func main() {
 	server := fabinHttp.NewApp()
 
-	server.GET("/foo", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+	// server.Use(func(w http.ResponseWriter, r *http.Request) {
+	// 	log.Println("OLHA O MIDDLEWARE")
+	// })
+
+	server.GET("/", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := w.Write([]byte("Teste testando!")); err != nil {
+			log.Println("Deu erro lek")
+		}
+	})
+
+	server.GET("/teste", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := w.Write([]byte("Opa fion")); err != nil {
+			log.Println("Deu erro lek")
+		}
 	})
 
 	log.Fatal(server.ListAndServe(":8080"))

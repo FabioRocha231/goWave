@@ -42,14 +42,14 @@ func (app *App) Use(mws ...port.Middleware) {
 	app.middlewares = append(app.middlewares, mws...)
 }
 
-func (app *App) applyMiddlewares(middlewares port.Handler) port.Handler {
-	// var finalHandler []port.Middleware
-	// for i := len(app.middlewares) - 1; i >= 0; i-- {
-	// 	finalHandler = app.middlewares[i](finalHandler)
-	// }
+// func (app *App) applyMiddlewares(middlewares port.Handler) port.Handler {
+// 	// var finalHandler []port.Middleware
+// 	// for i := len(app.middlewares) - 1; i >= 0; i-- {
+// 	// 	finalHandler = app.middlewares[i](finalHandler)
+// 	// }
 
-	return middlewares
-}
+// 	return middlewares
+// }
 
 func (app *App) ListAndServe(port string) error {
 	fmt.Println("Running in port: ", port)

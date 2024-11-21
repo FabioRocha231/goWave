@@ -19,35 +19,36 @@ func NewApp() port.App {
 }
 
 func (app *App) GET(path string, handler port.Handler, mws ...port.Handler) {
-	app.mux.HandleFunc(fmt.Sprintf("GET %s", path), app.applyMiddlewares(handler))
+	app.mux.HandleFunc(fmt.Sprintf("GET %s", path), handler)
 }
 
 func (app *App) POST(path string, handler port.Handler, mws ...port.Handler) {
-	app.mux.HandleFunc(fmt.Sprintf("POST %s", path), app.applyMiddlewares(handler))
+	app.mux.HandleFunc(fmt.Sprintf("POST %s", path), handler)
 }
 
 func (app *App) PUT(path string, handler port.Handler, mws ...port.Handler) {
-	app.mux.HandleFunc(fmt.Sprintf("PUT %s", path), app.applyMiddlewares(handler))
+	app.mux.HandleFunc(fmt.Sprintf("PUT %s", path), handler)
 }
 
 func (app *App) DELETE(path string, handler port.Handler, mws ...port.Handler) {
-	app.mux.HandleFunc(fmt.Sprintf("PUT %s", path), app.applyMiddlewares(handler))
+	app.mux.HandleFunc(fmt.Sprintf("PUT %s", path), handler)
 }
 
 func (app *App) PATCH(path string, handler port.Handler, mws ...port.Handler) {
-	app.mux.HandleFunc(fmt.Sprintf("GET %s", path), app.applyMiddlewares(handler))
+	app.mux.HandleFunc(fmt.Sprintf("GET %s", path), handler)
 }
 
 func (app *App) Use(mws ...port.Middleware) {
 	app.middlewares = append(app.middlewares, mws...)
 }
 
-func (app *App) applyMiddlewares(finalHandler port.Handler) port.Handler {
+func (app *App) applyMiddlewares(middlewares port.Handler) port.Handler {
+	// var finalHandler []port.Middleware
 	// for i := len(app.middlewares) - 1; i >= 0; i-- {
 	// 	finalHandler = app.middlewares[i](finalHandler)
 	// }
 
-	return finalHandler
+	return middlewares
 }
 
 func (app *App) ListAndServe(port string) error {

@@ -6,6 +6,18 @@ import (
 	"net/http"
 )
 
+func testHandler(w http.ResponseWriter, r *http.Request) {
+	if _, err := w.Write([]byte("Teste testando!")); err != nil {
+		log.Println("Deu erro lek")
+	}
+}
+
+func opaHandler(w http.ResponseWriter, r *http.Request) {
+	if _, err := w.Write([]byte("Opa fion")); err != nil {
+		log.Println("Deu erro lek")
+	}
+}
+
 func main() {
 	server := fabinHttp.NewApp()
 
@@ -13,17 +25,9 @@ func main() {
 	// 	log.Println("OLHA O MIDDLEWARE")
 	// })
 
-	server.GET("/", func(w http.ResponseWriter, r *http.Request) {
-		if _, err := w.Write([]byte("Teste testando!")); err != nil {
-			log.Println("Deu erro lek")
-		}
-	})
+	server.GET("/", testHandler)
 
-	server.GET("/teste", func(w http.ResponseWriter, r *http.Request) {
-		if _, err := w.Write([]byte("Opa fion")); err != nil {
-			log.Println("Deu erro lek")
-		}
-	})
+	server.GET("/teste", opaHandler)
 
 	log.Fatal(server.ListAndServe(":8080"))
 }
